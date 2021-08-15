@@ -15,13 +15,24 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`)
 const server = http.createServer(app); // http 서버, 접근하기 위해
 const wss = new WebSocket.Server({server}); // websockets 서버, http 서버 위에 만들기, 2개의 protocol이 같은 port를 공유
 
+const sockets = []; // fake database, 브라우저와의 연결 저장
+
 wss.on("connection", (socket) => { // 연결되었을 때, on == addEventListener?
+    sockets.push(socket)
+    socket["nickname"] = "Anon";
     console.log("Connected to Browser ✅");
     socket.on("close", () => console.log("Disconnected from Browser ❌")); // 브라우저와 연결이 끊기면
-    socket.on("message", message => { // 브라우저에게 메세지 받기
-        console.log(message.toString("utf-8"));
+    socket.on("message", (msg) => {
+        const message = JSON.parse(msg);
+        switch (message.type) {
+            case "new_message":
+                sockets.forEach((aSocket) =>
+                    aSocket.send(`${socket.nickname}: ${message.payload}`));
+                break;
+            case "nickname":
+                socket["nickname"] = message.payload;
+        }
     });
-    socket.send("hello"); // 커넥션이 발생했을 때, 브라우저에게 "hello" 라는 메세지 전달
 });
 
 server.listen(3000, handleListen);
