@@ -14,7 +14,12 @@ const httpServer = http.createServer(app); // http 서버, 접근하기 위해
 const wsServer = SocketIO(httpServer);
 
 wsServer.on("connection", (socket) => {
-    console.log(socket);
+    socket.on("enter_room", (msg, done) => {
+        console.log(msg);
+        setTimeout(() => {
+            done();
+        }, 3000);
+    });
 })
 
 /* const wss = new WebSocket.Server({server}); // websockets 서버, http 서버 위에 만들기, 2개의 protocol이 같은 port를 공유
