@@ -1,5 +1,5 @@
 import http from "http";
-import WebSocket from "ws";
+import SocketIO from "socket.io";
 import express from "express";
 
 const app = express();
@@ -10,13 +10,15 @@ app.use("/public", express.static(__dirname + "/public")); // public url을 생�
 app.get("/", (_, res) => res.render("home")); // home.pug 를 render 해주는 route handler 만들기
 app.get("/*", (_, res) => res.redirect("/")); // 다른 url 사용하게 하기, 지금은 다 home으로 보내기
 
-const handleListen = () => console.log(`Listening on http://localhost:3000`)
+const httpServer = http.createServer(app); // http 서버, 접근하기 위해
+const wsServer = SocketIO(httpServer);
 
-const server = http.createServer(app); // http 서버, 접근하기 위해
-const wss = new WebSocket.Server({server}); // websockets 서버, http 서버 위에 만들기, 2개의 protocol이 같은 port를 공유
+wsServer.on("connection", (socket) => {
+    console.log(socket);
+})
 
+/* const wss = new WebSocket.Server({server}); // websockets 서버, http 서버 위에 만들기, 2개의 protocol이 같은 port를 공유
 const sockets = []; // fake database, 브라우저와의 연결 저장
-
 wss.on("connection", (socket) => { // 연결되었을 때, on == addEventListener?
     sockets.push(socket)
     socket["nickname"] = "Anon";
@@ -27,12 +29,13 @@ wss.on("connection", (socket) => { // 연결되었을 때, on == addEventListene
         switch (message.type) {
             case "new_message":
                 sockets.forEach((aSocket) =>
-                    aSocket.send(`${socket.nickname}: ${message.payload}`));
+                aSocket.send(`${socket.nickname}: ${message.payload}`));
                 break;
-            case "nickname":
-                socket["nickname"] = message.payload;
-        }
-    });
-});
-
-server.listen(3000, handleListen);
+                case "nickname":
+                    socket["nickname"] = message.payload;
+                }
+            });
+        }); */
+        
+const handleListen = () => console.log(`Listening on http://localhost:3000`)
+httpServer.listen(3000, handleListen);
