@@ -18,7 +18,7 @@ async function getCamera() {
     try {
         const devices = await navigator.mediaDevices.enumerateDevices();
         const cameras = devices.filter((device) => device.kind === "videoinput");
-        const currentCamera = myStream.getVideoTracks();
+        const currentCamera = myStream.getVideoTracks()[0];
         cameras.forEach((camera) =>{
             const option = document.createElement("option");
             option.value = camera.deviceId;
@@ -37,12 +37,11 @@ async function getMedia(deviceId) {
     const initialConstrains = {
         audio: true,
         video: { facingMode: "user" },
-    }
+    };
     const cameraConstrains = {
         audio: true,
         video: { deviceId: { exact: deviceId } },
-    }
-
+    };
     try {
         myStream = await navigator.mediaDevices.getUserMedia(
             deviceId ? cameraConstrains : initialConstrains
@@ -88,7 +87,7 @@ async function handleCameraChange() {
         const videoTrack = myStream.getVideoTracks()[0];
         const videoSender = myPeerConnection
             .getSenders()
-            .find((sender) => sender.track.kind = "video");
+            .find((sender) => sender.track.kind === "video");
         videoSender.replaceTrack(videoTrack);
     }
 }
@@ -151,10 +150,21 @@ socket.on("ice", (ice) => {
 // RTC Code
 
 function makeConnection() {
-    myPeerConnection = new RTCPeerConnection();
+    myPeerConnection = new RTCPeerConnection({
+        iceServers: [
+            {
+                urls: [
+                    "stun:stun.l.google.com:19302",
+                    "stun:stun1.l.google.com:19302",
+                    "stun:stun2.l.google.com:19302",
+                    "stun:stun3.l.google.com:19302",
+                    "stun:stun4.l.google.com:19302",
+                ]
+            }
+        ],
+    });
     myPeerConnection.addEventListener("icecandidate", handleIce);
     myPeerConnection.addEventListener("addstream", handleAddStream);
-    console.log(myStream);
     myStream
         .getTracks()
         .forEach((track) => myPeerConnection.addTrack(track, myStream));
@@ -166,6 +176,6 @@ function handleIce(data) {
 }
 
 function handleAddStream(data) {
-    const peersStream = document.getElementById("peersStream");
-    peersStream.srcObject = data.stream;
+    const peerFace = document.getElementById("peerFace");
+    peerFace.srcObject = data.stream;
 }
