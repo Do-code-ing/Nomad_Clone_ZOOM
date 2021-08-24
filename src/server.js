@@ -27,7 +27,11 @@ wsServer.on("connection", (socket) => {
     socket.on("ice", (ice, roomName) => {
         socket.to(roomName).emit("ice", ice);
     });
+    socket.on("peer_exit", (roomName) => {
+        app.rooms.delete(roomName);
+        socket.to(roomName).emit("peer_exit");
+    })
 });
 
-const handleListen = () => console.log(`Listening on http://localhost:3000`)
+const handleListen = () => console.log(`Listening on http://localhost:3000`);
 httpServer.listen(3000, handleListen);

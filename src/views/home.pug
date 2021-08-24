@@ -9,17 +9,18 @@ html(lang="en")
     body 
         header 
             h1 Noom
-        main
+        main#main
             article#welcome
                 h2 Welcome!
                 h3 Noom에 오신 것을 환영합니다.
-                h3 당신의 친구와 1:1 영상 통화를 경험해보세요.
+                h3 당신의 친구와 실시간 1:1 영상 통화를 할 수 있습니다.
                 h3 영상 통화를 위해 방을 개설해보세요.
                 form
                     input(placeholder="room name", required, type="text")
                     button Enter room
-            ul#room-list
-                li 
+        mian#room
+            form#exit-form
+                input(type="submit" id="exit-room-button")
             article#call
                 section#myStream
                     video#myFace(autoplay, playsinline, width="400", height="400")

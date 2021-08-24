@@ -4,9 +4,10 @@ const myFace = document.getElementById("myFace");
 const muteBtn = document.getElementById("mute");
 const cameraBtn = document.getElementById("camera");
 const camerasSelect = document.getElementById("cameras");
+const room = document.getElementById("room");
 const call = document.getElementById("call");
 
-call.hidden = true;
+room.hidden = true;
 
 let myStream;
 let muted = false;
@@ -99,12 +100,13 @@ camerasSelect.addEventListener("input", handleCameraChange);
 
 // Welcome From (join the room)
 
+const main = document.getElementById("main");
 const welcome = document.getElementById("welcome");
 const welcomeForm = welcome.querySelector("form");
 
 async function initCall() {
-    welcome.hidden = true;
-    call.hidden = false;
+    main.hidden = true;
+    room.hidden = false;
     await getMedia();
     makeConnection();
 }
@@ -155,6 +157,8 @@ socket.on("ice", (ice) => {
     myPeerConnection.addIceCandidate(ice);
 })
 
+socket.on("peer_exit", handleExitRoom);
+
 // RTC Code
 
 function makeConnection() {
@@ -188,11 +192,13 @@ function handleAddStream(data) {
     peerFace.srcObject = data.stream;
 }
 
-// chat
+// chat & room exit
 
 const chat = document.getElementById("chat");
 const chatForm = document.getElementById("chat-form");
-const chatInput = chatForm.querySelector("#chat-input")
+const chatInput = chatForm.querySelector("#chat-input");
+const exitForm = document.getElementById("exit-form")
+const exitRoomBtn = exitForm.querySelector("#exit-room-button");
 
 function handleMyChat(event) {
     event.preventDefault();
@@ -200,12 +206,14 @@ function handleMyChat(event) {
     const value = chatInput.value;
     p.className = "my-chat";
     p.innerText = value;
+
+    if (myPeerConnection.iceConnectionState === "connected") {
+        myDataChannel.send(value);
+    }
+    
     chat.append(p);
-    myDataChannel.send(value);
     chatInput.value = "";
 }
-
-chatForm.addEventListener("submit", handleMyChat);
 
 function handlePeerChat(event) {
     const p = document.createElement("p");
@@ -214,3 +222,15 @@ function handlePeerChat(event) {
     p.innerText = value;
     chat.append(p);
 }
+
+function handleExitRoom() {
+    main.hidden = false;
+    room.hidden = true;
+    myStream
+        .getAudioTracks()
+        .forEach((track) => (track.enabled = false));
+    socket.emit("peer_exit", roomName);
+}
+
+chatForm.addEventListener("submit", handleMyChat);
+exitForm.addEventListener("submit", handleExitRoom);
