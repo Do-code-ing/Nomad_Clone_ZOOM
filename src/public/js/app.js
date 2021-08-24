@@ -102,7 +102,7 @@ camerasSelect.addEventListener("input", handleCameraChange);
 
 const main = document.getElementById("main");
 const welcome = document.getElementById("welcome");
-const welcomeForm = welcome.querySelector("form");
+const welcomeForm = document.getElementById("room-name");
 
 async function initCall() {
     main.hidden = true;

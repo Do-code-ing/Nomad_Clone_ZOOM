@@ -6,18 +6,21 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Noom
         link(rel="stylesheet", href="/public/css/style.css")
-    body 
+        link(href="https://fonts.googleapis.com/earlyaccess/jejugothic.css", rel="stylesheet")
+    body
+        div#bgImg
         header 
             h1 Noom
+        hr
         main#main
             article#welcome
                 h2 Welcome!
                 h3 Noom에 오신 것을 환영합니다.
                 h3 당신의 친구와 실시간 1:1 영상 통화를 할 수 있습니다.
                 h3 영상 통화를 위해 방을 개설해보세요.
-                form
-                    input(placeholder="room name", required, type="text")
-                    button Enter room
+            form#room-name
+                input(placeholder="write a room name", id="room-name-text" required, type="text")
+                input(type="submit", id="room-name-button", value="Enter room")
         mian#room
             form#exit-form
                 input(type="submit" id="exit-room-button")
@@ -34,5 +37,9 @@ html(lang="en")
                         input(type="text", id="chat-input" placeholder="write a message", required)
                         input(type="submit", value="message")
                 video#peerFace(autoplay, playsinline, width="400", height="400")
+        footer
+            p 배경화면 변경
+            select#background-img-change
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")
+        script(src="/public/js/background.js")

@@ -28,7 +28,6 @@ wsServer.on("connection", (socket) => {
         socket.to(roomName).emit("ice", ice);
     });
     socket.on("peer_exit", (roomName) => {
-        app.rooms.delete(roomName);
         socket.to(roomName).emit("peer_exit");
     })
 });
