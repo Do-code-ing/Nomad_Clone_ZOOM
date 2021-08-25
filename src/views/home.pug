@@ -10,7 +10,7 @@ html(lang="en")
     body
         div#bgImg
         header 
-            h1 Noom
+            h1#title Noom
         hr
         main#main
             article#welcome
@@ -23,20 +23,21 @@ html(lang="en")
                 input(type="submit", id="room-name-button", value="Enter room")
         mian#room
             form#exit-form
-                input(type="submit" id="exit-room-button")
+                input(type="submit", id="exit-room-button", value="EXIT")
             article#call
                 section#myStream
-                    video#myFace(autoplay, playsinline, width="400", height="400")
+                    video.Face#myFace(autoplay, playsinline, width="400", height="400")
                     div#buttons
                         button#mute Mute
                         button#camera Turn Camera Off
                         select#cameras
-                section
+                section#chat-section
                     div#chat
                     form#chat-form
                         input(type="text", id="chat-input" placeholder="write a message", required)
-                        input(type="submit", value="message")
-                video#peerFace(autoplay, playsinline, width="400", height="400")
+                        input(type="submit", id="chat-submit", value="send")
+                section
+                    video.Face#peerFace(autoplay, playsinline, width="400", height="400")
         footer
             p 배경화면 변경
             select#background-img-change

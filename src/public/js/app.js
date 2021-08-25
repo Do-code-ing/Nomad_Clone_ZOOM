@@ -6,6 +6,8 @@ const cameraBtn = document.getElementById("camera");
 const camerasSelect = document.getElementById("cameras");
 const room = document.getElementById("room");
 const call = document.getElementById("call");
+const title = document.getElementById("title");
+const noom = "Noom";
 
 room.hidden = true;
 
@@ -117,6 +119,7 @@ async function handleWelcomeSubmit(event) {
     await initCall();
     socket.emit("join_room", input.value);
     roomName = input.value;
+    title.innerText += `: ${roomName}`;
     input.value = "";
 }
 
@@ -202,8 +205,10 @@ const exitRoomBtn = exitForm.querySelector("#exit-room-button");
 
 function handleMyChat(event) {
     event.preventDefault();
+    const div = document.createElement("div");
     const p = document.createElement("p");
     const value = chatInput.value;
+    div.className = "my-div";
     p.className = "my-chat";
     p.innerText = value;
 
@@ -211,21 +216,34 @@ function handleMyChat(event) {
         myDataChannel.send(value);
     }
     
-    chat.append(p);
+    div.append(p);
+    chat.append(div);
     chatInput.value = "";
+    chat.scrollTop = chat.scrollHeight;
+    console.log(div.parentNode)
 }
 
 function handlePeerChat(event) {
+    const div = document.createElement("div");
     const p = document.createElement("p");
     const value = event.data;
-    p.className = "peer-chat"
+    div.className = "peer-div";
+    p.className = "peer-chat";
     p.innerText = value;
-    chat.append(p);
+    div.append(p);
+    chat.append(div);
+    chat.scrollTop = chat.scrollHeight;
 }
 
-function handleExitRoom() {
+function handleExitRoom(event) {
+    event.preventDefault();
+    title.innerText = noom;
     main.hidden = false;
     room.hidden = true;
+    muteBtn.innerText = "Mute";
+    muted = false;
+    cameraBtn.innerText = "Turn Camera Off";
+    cameraOff = false;
     myStream
         .getAudioTracks()
         .forEach((track) => (track.enabled = false));
