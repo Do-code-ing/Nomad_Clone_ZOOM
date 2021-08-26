@@ -10,7 +10,7 @@ const title = document.getElementById("title");
 const notice = document.getElementById("notice");
 const noom = "Noom";
 
-room.hidden = true;
+room.style.display = "none";
 notice.hidden = true;
 
 let myStream;
@@ -110,7 +110,7 @@ const welcomeForm = document.getElementById("room-name");
 
 async function initCall() {
     main.hidden = true;
-    room.hidden = false;
+    room.style.display = "flex";
     await getMedia();
     makeConnection();
 }
@@ -122,7 +122,7 @@ async function handleWelcomeSubmit(event) {
     socket.emit("join_room", input.value);
     roomName = input.value;
     if (main.hidden === true) {
-        title.innerText += `: ${roomName}`;
+        title.innerText = `  Noom: ${roomName}  `;
     }
     input.value = "";
 }
@@ -241,9 +241,9 @@ function handlePeerChat(event) {
 }
 
 function handleExitRoom() {
-    title.innerText = noom;
+    title.innerText = "";
     main.hidden = false;
-    room.hidden = true;
+    room.style.display = "none";
     muteBtn.innerText = "Mute";
     muted = false;
     cameraBtn.innerText = "Turn Camera Off";
@@ -265,7 +265,7 @@ function handleMyExitRoom(event) {
     notice.hidden = false;
     notice.innerText = "방에서 나왔습니다.";
     disapper();
-    setTimeout((() => notice.hidden = true), 2000);
+    setTimeout((() => notice.hidden = true), 3000);
 }
 
 function handlePeerExitRoom() {
@@ -274,13 +274,13 @@ function handlePeerExitRoom() {
     notice.hidden = false;
     notice.innerText = "상대방이 방을 나갔습니다.";
     disapper();
-    setTimeout((() => notice.hidden = true), 2000);
+    setTimeout((() => notice.hidden = true), 3000);
 }
 
 function disapper() {
     setTimeout(() => {
         notice.classList.add("disappear");
-    }, 1000);
+    }, 2000);
 }
 
 chatForm.addEventListener("submit", handleMyChat);

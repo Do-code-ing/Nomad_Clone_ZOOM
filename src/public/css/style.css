@@ -1,3 +1,7 @@
+html {
+    font-size: 16px;
+}
+
 body {
     position: relative;
     height: 100vh;
@@ -9,7 +13,7 @@ body {
     text-align: center;
     font-family: 'Jeju Gothic', sans-serif;
     color: white;
-    text-shadow: -0.07em 0 darkslategray, 0 0.07em darkslategray, 0.07em 0 darkslategray, 0 -0.07em darkslategray;
+    text-shadow: -0.07rem 0 darkslategray, 0 0.07rem darkslategray, 0.07rem 0 darkslategray, 0 -0.07rem darkslategray;
     margin: 0;
 }
 
@@ -29,49 +33,51 @@ body {
 }
 
 header {
-    margin-top: 2em;
+    margin: 0;
     text-align: center;
 }
 
 #welcome {
-    margin: 5em;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
 }
 
 h1 {
-    font-size: 6em;
-    margin: 0.2em;
-    padding-left: 2em;
-    padding-right: 2em;
+    white-space: pre;
+    font-size: 6rem;
+    margin: 3rem;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+    text-underline-position: under;
 }
 
 h2 {
-    font-size: 4em;
+    font-size: 4rem;
 }
 
 h3 {
-    font-size: 2em;
+    font-size: 2rem;
+    word-break: keep-all;
+    line-height: 3rem;
 }
 
 h2,
 h3 {
     font-weight: normal;
-    margin: 0.5em;
+    margin: 1rem;
 }
 
-p {
-    margin: 0.5em;
+#notice {
+    display: hidden;
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-size: 2rem;
 }
-    #notice {
-        display: hidden;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.7);
-        border-radius: 0.3em;
-        padding: 0.5em;
-        font-size: 1.5em;
-    }
 
 .disappear {
     animation: fade-out 1s forwards;
@@ -85,19 +91,15 @@ p {
     }
 }
 
-hr {
-    width: 60em;
-}
-
 input {
     background-color: rgba(255, 255, 255, 0.2);
     max-width: 100%;
     height: auto;
-    padding: 0.3em;
+    padding: 0.3rem;
     font-family: inherit;
-    font-size: 2em;
+    font-size: 2rem;
     outline: none;
-    border-radius: 0.3em;
+    border-radius: 0.5rem;
     border: none;
     text-align: center;
     text-shadow: inherit;
@@ -113,11 +115,11 @@ input {
     
     input:focus {
         background-color: rgba(0, 0, 0, 0.2);
-        border-bottom: 1px solid white;
+        border-bottom: 0.2rem solid white;
     }
 
     input#room-name-text {
-        width: 15em;
+        width: 20rem;
     }
 
     input#exit-room-button:hover {
@@ -125,16 +127,15 @@ input {
     }
 
     input#chat-input {
-        font-size: 1.5em;
+        font-size: 1.5rem;
     }
 
     input#chat-submit {
-        font-size: 1.5em;
+        font-size: 1.5rem;
     }
 
     input[type="submit"] {
-        margin-left: 0.3em;
-        height: 1.7em;
+        margin-left: 0.3rem;
     }
         input[type="submit"]:active {
             background-color: rgba(255, 255, 255, 0.1);
@@ -142,16 +143,82 @@ input {
 
 button {
     border: none;
-    border-radius: 0.3em;
+    border-radius: 0.3rem;
     font-family: inherit;
-    font-size: 1em;
-    min-width: 5em;
+    font-size: 1.5rem;
+    min-width: 5rem;
 }
+
+#room {
+    flex-direction: column;
+}
+
+#exit-form {
+    text-align: right;
+}
+
+#call {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.Face {
+    background-image: url(../img/waiting.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#chat-section {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 0.1rem solid greenyellow;
+    border-radius: 0.5rem;
+    height: 40rem;
+    width: 25rem;
+}
+    #chat-underline {
+        width: 98%;
+        text-align: center;
+    }
+
+    #chat {
+        margin: 1rem;
+        height: 35rem;
+        overflow-y: scroll;
+    }
+        #chat p {
+            font-size: 1.5rem;
+            margin: 0.1rem;
+            padding: 0.2rem;
+        }
+
+    .my-div {
+        text-align: left;
+    }
+        .my-chat {
+            display: inline-block;
+            border-radius: 0.5rem;
+            background-color: rgba(0, 217, 255, 0.2);
+        }
+
+    .peer-div {
+        text-align: right; 
+    }
+        .peer-chat {
+            display: inline-block;
+            border-radius: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+    #chat-form {
+        text-align: center;
+    }
 
 footer {
     position: absolute;
-    bottom: 2em;
-    right: 1em;
+    bottom: 1rem;
+    right: 0.5rem;
+    font-size: 1.5rem;
 }
 
 footer p {
@@ -162,83 +229,78 @@ footer p {
 
 select {
     -moz-appearance: none;
-	-webkit-appearance: none;
-	appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
     font-family: inherit;
     line-height: 1.5;
     background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 0.5em;
+    border-radius: 0.5rem;
     border: 0;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    font-size: 1em;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 1.5rem;
     color: inherit;
     outline: none;
     transition: 0.4s;
 }
     select:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(0, 0, 0, 0.2);
     }
 
     select:focus {
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0.4);
     }
 
-#exit-form {
-    position: absolute;
-    right: 1em;
-    z-index: 10;
-}
-
-#call {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 2em;
-}
-
-.Face {
-    background-image: url(../img/waiting.gif);
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-#chat-section {
-    height: 25em;
-    width: 40em;
-}
-    #chat {
-        margin: 1em;
-        height: 30em;
-        overflow-y: scroll;
+@media screen and (max-width: 1600px) {
+    html {
+        font-size: 15px;
     }
-        #chat p {
-            font-size: 1.5em;
-            margin: 0.1em;
-            padding: 0.2em;
-        }
-
-    .my-div {
-        text-align: left;
+}
+@media screen and (max-width: 1400px) {
+    html {
+        font-size: 14px;
     }
-        .my-chat {
-            display: inline-block;
-            border-radius: 0.5em;
-            background-color: rgba(0, 217, 255, 0.2);
-        }
-
-    .peer-div {
-        text-align: right; 
-        }
-        .peer-chat {
-            display: inline-block;
-            border-radius: 0.5em;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-    #chat-form {
-        text-align: center;
+}
+@media screen and (max-width: 1200px) {
+    html {
+        font-size: 13px;
     }
+}
+@media screen and (max-width: 1000px) {
+    html {
+        font-size: 12px;
+    }
+}
+@media screen and (max-width: 650px) {
+    html {
+        font-size: 11px;
+    }
+
+    h1 {
+        font-size: 5rem;
+    }
+
+    #exit-form {
+        position: relative;
+        right: 1rem;
+    }
+
+    #call {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    
+        #myFace {
+            width: 40%;
+            height: auto;
+        }
+
+        #chat-section {
+            display: none;
+        }
+
+        #peerFace {
+            width: 70%;
+            height: auto;
+        }
+}

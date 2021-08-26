@@ -8,37 +8,37 @@ html(lang="en")
         link(rel="stylesheet", href="/public/css/style.css")
         link(href="https://fonts.googleapis.com/earlyaccess/jejugothic.css", rel="stylesheet")
     body
-        div#bgImg
-        header 
-            h1#title Noom
-        hr
-        p#notice
         main#main
+            header 
+                h1   Noom  
             article#welcome
                 h2 Welcome!
-                h3 Noom에 오신 것을 환영합니다.
-                h3 당신의 친구와 실시간 1:1 영상 통화를 할 수 있습니다.
-                h3 영상 통화를 위해 방을 개설해보세요.
+                h3 Noom에 오신 것을 환영합니다. <br> 당신의 친구와 실시간 1:1 영상 통화를 할 수 있습니다. <br>영상 통화를 위해 방을 개설해보세요.
             form#room-name
-                input(placeholder="write a room name", id="room-name-text" required, type="text")
+                input(placeholder="write a room name", id="room-name-text" required, type="text", maxlength=8)
                 input(type="submit", id="room-name-button", value="Enter room")
-        mian#room
+        main#room
+            header 
+                h1#title
             form#exit-form
                 input(type="submit", id="exit-room-button", value="EXIT")
             article#call
                 section#myStream
-                    video.Face#myFace(autoplay, playsinline, width="400", height="400")
+                    video.Face#myFace(autoplay, playsinline, width="400em", height="400em")
                     div#buttons
                         button#mute Mute
                         button#camera Turn Camera Off
-                        select#cameras
+                    select#cameras
                 section#chat-section
                     div#chat
+                    hr#chat-underline
                     form#chat-form
                         input(type="text", id="chat-input" placeholder="write a message", required)
                         input(type="submit", id="chat-submit", value="send")
-                section
-                    video.Face#peerFace(autoplay, playsinline, width="400", height="400")
+                section#peerStream
+                    video.Face#peerFace(autoplay, playsinline, width="400em", height="400em")
+        div#bgImg
+        p#notice
         footer
             p 배경화면 변경
             select#background-img-change
