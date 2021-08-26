@@ -160,7 +160,9 @@ socket.on("ice", (ice) => {
     myPeerConnection.addIceCandidate(ice);
 })
 
-socket.on("peer_exit", handleExitRoom);
+socket.on("exit_room", handleExitRoom);
+
+socket.on("peer_disconnecting", handleExitRoom);
 
 // RTC Code
 
@@ -190,9 +192,9 @@ function handleIce(data) {
     socket.emit("ice", data.candidate, roomName);
 }
 
-function handleAddStream(data) {
+async function handleAddStream(data) {
     const peerFace = document.getElementById("peerFace");
-    peerFace.srcObject = data.stream;
+    peerFace.srcObject = await data.stream;
 }
 
 // chat & room exit
@@ -220,7 +222,6 @@ function handleMyChat(event) {
     chat.append(div);
     chatInput.value = "";
     chat.scrollTop = chat.scrollHeight;
-    console.log(div.parentNode)
 }
 
 function handlePeerChat(event) {
@@ -239,6 +240,7 @@ function handleExitRoom(event) {
     if (event) {
         event.preventDefault();
     }
+
     title.innerText = noom;
     main.hidden = false;
     room.hidden = true;
@@ -249,7 +251,9 @@ function handleExitRoom(event) {
     myStream
         .getAudioTracks()
         .forEach((track) => (track.enabled = false));
-    socket.emit("peer_exit", roomName);
+    socket.emit("exit_room", roomName);
+    peerFace.srcObject = null;
+    chat.childNodes.forEach((child) => {child.remove()});
 }
 
 chatForm.addEventListener("submit", handleMyChat);
