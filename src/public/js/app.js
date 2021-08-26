@@ -236,7 +236,9 @@ function handlePeerChat(event) {
 }
 
 function handleExitRoom(event) {
-    event.preventDefault();
+    if (event) {
+        event.preventDefault();
+    }
     title.innerText = noom;
     main.hidden = false;
     room.hidden = true;
