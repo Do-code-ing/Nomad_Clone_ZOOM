@@ -61,6 +61,29 @@ h3 {
 p {
     margin: 0.5em;
 }
+    #notice {
+        display: hidden;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 0.3em;
+        padding: 0.5em;
+        font-size: 1.5em;
+    }
+
+.disappear {
+    animation: fade-out 1s forwards;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    } to {
+        opacity: 0;
+    }
+}
 
 hr {
     width: 60em;

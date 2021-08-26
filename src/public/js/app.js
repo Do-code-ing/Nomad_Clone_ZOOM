@@ -7,9 +7,11 @@ const camerasSelect = document.getElementById("cameras");
 const room = document.getElementById("room");
 const call = document.getElementById("call");
 const title = document.getElementById("title");
+const notice = document.getElementById("notice");
 const noom = "Noom";
 
 room.hidden = true;
+notice.hidden = true;
 
 let myStream;
 let muted = false;
@@ -119,7 +121,9 @@ async function handleWelcomeSubmit(event) {
     await initCall();
     socket.emit("join_room", input.value);
     roomName = input.value;
-    title.innerText += `: ${roomName}`;
+    if (main.hidden === true) {
+        title.innerText += `: ${roomName}`;
+    }
     input.value = "";
 }
 
@@ -160,9 +164,9 @@ socket.on("ice", (ice) => {
     myPeerConnection.addIceCandidate(ice);
 })
 
-socket.on("exit_room", handleExitRoom);
+socket.on("exit_room", handlePeerExitRoom);
 
-socket.on("peer_disconnecting", handleExitRoom);
+socket.on("peer_disconnecting", handlePeerExitRoom);
 
 // RTC Code
 
@@ -236,11 +240,7 @@ function handlePeerChat(event) {
     chat.scrollTop = chat.scrollHeight;
 }
 
-function handleExitRoom(event) {
-    if (event) {
-        event.preventDefault();
-    }
-
+function handleExitRoom() {
     title.innerText = noom;
     main.hidden = false;
     room.hidden = true;
@@ -248,13 +248,40 @@ function handleExitRoom(event) {
     muted = false;
     cameraBtn.innerText = "Turn Camera Off";
     cameraOff = false;
-    myStream
-        .getAudioTracks()
-        .forEach((track) => (track.enabled = false));
+    if (myStream) {
+        myStream
+            .getAudioTracks()
+            .forEach((track) => (track.enabled = false));
+    }
     socket.emit("exit_room", roomName);
     peerFace.srcObject = null;
     chat.childNodes.forEach((child) => {child.remove()});
 }
 
+function handleMyExitRoom(event) {
+    event.preventDefault();
+    handleExitRoom();
+    notice.classList.remove("disappear");
+    notice.hidden = false;
+    notice.innerText = "방에서 나왔습니다.";
+    disapper();
+    setTimeout((() => notice.hidden = true), 2000);
+}
+
+function handlePeerExitRoom() {
+    handleExitRoom();
+    notice.classList.remove("disappear");
+    notice.hidden = false;
+    notice.innerText = "상대방이 방을 나갔습니다.";
+    disapper();
+    setTimeout((() => notice.hidden = true), 2000);
+}
+
+function disapper() {
+    setTimeout(() => {
+        notice.classList.add("disappear");
+    }, 1000);
+}
+
 chatForm.addEventListener("submit", handleMyChat);
-exitForm.addEventListener("submit", handleExitRoom);
+exitForm.addEventListener("submit", handleMyExitRoom);
