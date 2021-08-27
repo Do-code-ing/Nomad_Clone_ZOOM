@@ -76,6 +76,7 @@ h3 {
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 0.5rem;
     padding: 1rem;
+    word-break: keep-all;
     font-size: 2rem;
 }
 
@@ -265,42 +266,47 @@ select {
     html {
         font-size: 13px;
     }
+
+    #chat-section {
+        display: none;
+    }
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 900px) {
     html {
         font-size: 12px;
     }
-}
-@media screen and (max-width: 650px) {
-    html {
-        font-size: 11px;
-    }
-
+    
     h1 {
         font-size: 5rem;
     }
-
-    #exit-form {
-        position: relative;
-        right: 1rem;
-    }
-
+    
     #call {
         flex-direction: column-reverse;
         align-items: center;
     }
     
-        #myFace {
-            width: 40%;
-            height: auto;
-        }
+    #myFace {
+        width: 15em;
+        height: auto;
+    }
+    
+    #chat-section {
+        display: none;
+    }
+    
+    #peerFace {
+        width: 30em;
+        height: auto;
+    }
+}
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 11px;
+    }
 
-        #chat-section {
-            display: none;
-        }
-
-        #peerFace {
-            width: 70%;
-            height: auto;
-        }
+    #exit-form {
+        position: absolute;
+        bottom: 1rem;
+        left: 2rem;
+    }
 }
