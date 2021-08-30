@@ -148,6 +148,7 @@ input[type="submit"]:active {
 }
 
 button {
+  margin: 0.1rem;
   border: none;
   border-radius: 0.3rem;
   font-family: inherit;
@@ -221,6 +222,25 @@ button {
 
 #chat-form {
   text-align: center;
+}
+
+#peerStream {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#state {
+  max-width: fit-content;
+  height: min-content;
+  margin: 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.7rem;
+  padding-right: 1rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+  font-size: 2rem;
 }
 
 footer {
@@ -300,10 +320,6 @@ select:focus {
   #myFace {
     width: 15em;
     height: auto;
-  }
-
-  #chat-section {
-    display: none;
   }
 
   #peerFace {

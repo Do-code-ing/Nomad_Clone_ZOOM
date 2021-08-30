@@ -25,6 +25,7 @@ html(lang="en")
             article#call
                 section#myStream
                     video.Face#myFace(autoplay, playsinline, width="400em", height="400em")
+                    audio#myVoice(autoplay) 
                     div#buttons
                         button#mute Mute
                         button#camera Turn Camera Off
@@ -37,6 +38,8 @@ html(lang="en")
                         input(type="submit", id="chat-submit", value="send")
                 section#peerStream
                     video.Face#peerFace(autoplay, playsinline, width="400em", height="400em")
+                    audio#peerVoice(autoplay) 
+                    p#state 🟠 Waiting
         div#bgImg
         p#notice
         footer
