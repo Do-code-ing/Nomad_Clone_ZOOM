@@ -30,3 +30,7 @@ room exit 후 room exit 된 이유 등을 알려주는 알림창 필요
 2021-08-30
 웹캠이 없는 환경에서 room 에 접속 시 같은 방의 상대방과 연결되지 않는 버그 발생
 2021-08-30: video, audio를 각각 따로 받는 방식으로 하여 처리 완료
+
+# 2021-08-30
+room 에서 입장 후, p2p 연결 후, 채팅을 한 뒤 같은 이름의 room 에 재입장하면 기존에 쳤던 채팅이 남아있는 버그 발생
+2021-08-30: chat.childNodes.forEach() 에서 while (chat.childNodes.length) 로 수정, 처리 완료

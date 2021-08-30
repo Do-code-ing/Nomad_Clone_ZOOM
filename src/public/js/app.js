@@ -301,7 +301,9 @@ function handleExitRoom() {
     socket.emit("exit_room", roomName);
     peerFace.srcObject = null;
     peerVoice.srcObject = null;
-    chat.childNodes.forEach((child) => {child.remove()});
+    while (chat.childNodes.length) {
+        chat.removeChild(chat.childNodes[0]);
+    }
 }
 
 function handleMyExitRoom(event) {
