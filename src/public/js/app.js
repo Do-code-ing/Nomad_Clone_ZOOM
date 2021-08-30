@@ -56,7 +56,9 @@ async function getVideo(deviceId) {
             deviceId ? constrainVideo : initialVideo
         );
         myFace.srcObject = myVideo;
-        await getCamera();
+        if (!deviceId) {
+            await getCamera();
+        }
     } catch (e) {
         console.log(e);
         myFace.style.backgroundImage = "url(public/img/unknown.png)";
@@ -66,7 +68,7 @@ async function getVideo(deviceId) {
     }
 }
 
-async function getAudio(deviceId) {
+async function getAudio() {
     const initailAudio = {
         audio: true,
     };
