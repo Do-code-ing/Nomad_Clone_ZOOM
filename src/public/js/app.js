@@ -88,9 +88,13 @@ function handleMuteClick() {
             .forEach((track) => (track.enabled = !track.enabled));
         if (!muted) {
             muteBtn.innerText = "Unmute";
+            muteBtn.style.backgroundColor = "darkslategray";
+            muteBtn.style.color = "white";
             muted = true;
         } else {
             muteBtn.innerText = "Mute";
+            muteBtn.style.backgroundColor = "lightgray";
+            muteBtn.style.color = "black";
             muted = false;
         }
     }
@@ -101,12 +105,16 @@ function handleCameraClick() {
         myVideo
             .getVideoTracks()
             .forEach((track) => (track.enabled = !track.enabled));
-        if (cameraOff) {
-            cameraBtn.innerText = "Turn Camera Off";
-            cameraOff = false;
-        } else {
+        if (!cameraOff) {
             cameraBtn.innerText = "Turn Camera On";
+            cameraBtn.style.backgroundColor = "darkslategray";
+            cameraBtn.style.color = "white";
             cameraOff = true;
+        } else {
+            cameraBtn.innerText = "Turn Camera Off";
+            cameraBtn.style.backgroundColor = "lightgray";
+            cameraBtn.style.color = "black";
+            cameraOff = false;
         }
     }
 }

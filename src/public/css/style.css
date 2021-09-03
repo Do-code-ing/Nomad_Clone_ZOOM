@@ -149,6 +149,7 @@ input[type="submit"]:active {
 
 button {
   margin: 0.1rem;
+  background-color: lightgray;
   border: none;
   border-radius: 0.3rem;
   font-family: inherit;
