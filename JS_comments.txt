@@ -1,0 +1,15 @@
+Express JS: node.js 웹 애플리케이션 프레임워크
+Pug: html을 조금 더 세련되게 쓸 수 있는 템플릿 언어, express 뷰 엔진이다.
+app.get()
+(req, res) =>
+package.json: 패키지의 json
+babel: JavaScript Compiler
+nodemon: 디렉토리의 파일 변경이 감지되면 노드 응용 프로그램을 자동으로 다시 시작하여 node.js 기반 응용 프로그램을 개발하는 데 도움이 되는 도구
+
+mvp css: css 파일하나 써버리깅
+websockets: 브라우저와 서버의 양방향 통신을 위한 protocol
+socket.io: node.js의 framework로, websockets와 비슷하지만 더 좋은 성능
+adapter: 서버와 서버를 연결해준당
+WebRTC: Web Real-Time Communication, for p2p
+stun server: 공용 ip를 알려줌. request하면 인터넷에서 네가 누군지 알려주는 서버
+임시로만 구글에서 주는걸로 쓰고, 실제로는 내껄로 써야한다.

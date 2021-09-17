@@ -1,0 +1,4 @@
+cmd
+netstat -ano
+PID
+작업관리자 -> 세부정보 -> PID 작업끝내기
